@@ -21,6 +21,7 @@ limitations under the License.
 package v1alpha1
 
 import (
+	corev1 "k8s.io/api/core/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	userdata "sigs.k8s.io/cluster-api-provider-aws/pkg/cloud/services/userdata"
 )
@@ -467,6 +468,11 @@ func (in *Instance) DeepCopyInto(out *Instance) {
 		in, out := &in.UserData, &out.UserData
 		*out = new(string)
 		**out = **in
+	}
+	if in.Addresses != nil {
+		in, out := &in.Addresses, &out.Addresses
+		*out = make([]corev1.NodeAddress, len(*in))
+		copy(*out, *in)
 	}
 	if in.PrivateIP != nil {
 		in, out := &in.PrivateIP, &out.PrivateIP

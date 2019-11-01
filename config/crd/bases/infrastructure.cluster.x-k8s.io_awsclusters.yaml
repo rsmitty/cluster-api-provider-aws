@@ -137,6 +137,35 @@ spec:
                 properties:
                   host:
                     description: The hostname on which the API server is serving.
+                  addresses:
+                    description: Addresses contains the AWS instance associated addresses.
+                    items:
+                      description: NodeAddress contains information for the node's
+                        address.
+                      properties:
+                        address:
+                          description: The node address.
+                          type: string
+                        type:
+                          description: Node address type, one of Hostname, ExternalIP
+                            or InternalIP.
+                          type: string
+                      required:
+                      - address
+                      - type
+                      type: object
+                    type: array
+                  ebsOptimized:
+                    description: Indicates whether the instance is optimized for Amazon
+                      EBS I/O.
+                    type: boolean
+                  enaSupport:
+                    description: Specifies whether enhanced networking with ENA is
+                      enabled.
+                    type: boolean
+                  iamProfile:
+                    description: The name of the IAM instance profile associated with
+                      the instance, if applicable.
                     type: string
                   port:
                     description: The port on which the API server is serving.
@@ -326,6 +355,98 @@ spec:
                 securityGroups:
                   additionalProperties:
                     description: SecurityGroup defines an AWS security group.
+                type: array
+              bastion:
+                description: Instance describes an AWS instance.
+                properties:
+                  addresses:
+                    description: Addresses contains the AWS instance associated addresses.
+                    items:
+                      description: NodeAddress contains information for the node's
+                        address.
+                      properties:
+                        address:
+                          description: The node address.
+                          type: string
+                        type:
+                          description: Node address type, one of Hostname, ExternalIP
+                            or InternalIP.
+                          type: string
+                      required:
+                      - address
+                      - type
+                      type: object
+                    type: array
+                  ebsOptimized:
+                    description: Indicates whether the instance is optimized for Amazon
+                      EBS I/O.
+                    type: boolean
+                  enaSupport:
+                    description: Specifies whether enhanced networking with ENA is
+                      enabled.
+                    type: boolean
+                  iamProfile:
+                    description: The name of the IAM instance profile associated with
+                      the instance, if applicable.
+                    type: string
+                  id:
+                    type: string
+                  imageId:
+                    description: The ID of the AMI used to launch the instance.
+                    type: string
+                  instanceState:
+                    description: The current state of the instance.
+                    type: string
+                  networkInterfaces:
+                    description: Specifies ENIs attached to instance
+                    items:
+                      type: string
+                    type: array
+                  privateIp:
+                    description: The private IPv4 address assigned to the instance.
+                    type: string
+                  publicIp:
+                    description: The public IPv4 address assigned to the instance,
+                      if applicable.
+                    type: string
+                  rootDeviceSize:
+                    description: Specifies size (in Gi) of the root storage device
+                    format: int64
+                    type: integer
+                  securityGroupIds:
+                    description: SecurityGroupIDs are one or more security group IDs
+                      this instance belongs to.
+                    items:
+                      type: string
+                    type: array
+                  sshKeyName:
+                    description: The name of the SSH key pair.
+                    type: string
+                  subnetId:
+                    description: The ID of the subnet of the instance.
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: The tags associated with the instance.
+                    type: object
+                  type:
+                    description: The instance type.
+                    type: string
+                  userData:
+                    description: UserData is the raw data script passed to the instance
+                      which is run upon bootstrap. This field must not be base64 encoded
+                      and should only be used when running a new instance.
+                    type: string
+                required:
+                - id
+                type: object
+              network:
+                description: Network encapsulates AWS networking resources.
+                properties:
+                  apiServerElb:
+                    description: APIServerELB is the Kubernetes api server classic
+                      load balancer.
                     properties:
                       id:
                         description: ID is a unique identifier.

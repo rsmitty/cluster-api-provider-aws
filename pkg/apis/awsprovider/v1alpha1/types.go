@@ -430,6 +430,9 @@ type Instance struct {
 	// The name of the IAM instance profile associated with the instance, if applicable.
 	IAMProfile string `json:"iamProfile,omitempty"`
 
+	// Addresses contains the AWS instance associated addresses.
+	Addresses []corev1.NodeAddress `json:"addresses,omitempty"`
+
 	// The private IPv4 address assigned to the instance.
 	PrivateIP *string `json:"privateIp,omitempty"`
 
