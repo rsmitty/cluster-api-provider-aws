@@ -239,7 +239,7 @@ func reconcileNormal(clusterScope *scope.ClusterScope) (reconcile.Result, error)
 		Port: clusterScope.APIServerPort(),
 	}
 
-	for _, subnet := range clusterScope.Subnets().FilterPrivate() {
+	for _, subnet := range clusterScope.Subnets() {
 		found := false
 		for _, az := range awsCluster.Status.Network.APIServerELB.AvailabilityZones {
 			if az == subnet.AvailabilityZone {
